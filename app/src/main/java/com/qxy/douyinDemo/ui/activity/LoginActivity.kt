@@ -19,7 +19,7 @@ import com.qxy.douyinDemo.mvvm.viewModel.LoginViewModel
 
 class LoginActivity : BaseActivity<RepositoryImpl, LoginViewModel, ActivityLoginBinding>() {
 
-    private val mScope = "user_info"
+    private val mScope = "user_info,video.list,trial.whitelist"
     var douYinOpenApi: DouYinOpenApi? = null
 
     override fun getContentViewId(): Int = R.layout.activity_login
@@ -33,6 +33,9 @@ class LoginActivity : BaseActivity<RepositoryImpl, LoginViewModel, ActivityLogin
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         sendAuth()
         mViewModel.loginResult.observe(this, Observer {
+            AppSetting.OPEN_ID=it.open_id
+            AppSetting.ACCESS_TOKEN2=it.access_token
+            AppSetting.ACCESS_TOKEN3=it.access_token
             Log.d("accessToken", "onCreate: $it.accessToken")
             Log.d("openId", "onCreate: $it.openId")
         })

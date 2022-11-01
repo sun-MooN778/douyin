@@ -93,7 +93,9 @@ class MyFragment : BaseFragment<RepositoryImpl, MyFragmentViewModel, FragmentMyB
             ?.observe(this, Observer { t: VideoMessage ->
                 Log.d("XXXX", "6666666+${AppSetting.ACCESS_TOKEN}")
                 var adapter: MyFragmentItem1Adapter = MyFragmentItem1Adapter()
+
                 t.list.let { adapter.loadMore(it) }
+                binding.myRecyclerView.adapter=adapter
                 adapter.setOnItemClickListener1(object : BaseRvAdapter.OnItemClickListener<List> {
                     override fun onItemClick(data: List, pos: Int) {
                         //在这里设置作品点击后的跳转界面
@@ -104,12 +106,19 @@ class MyFragment : BaseFragment<RepositoryImpl, MyFragmentViewModel, FragmentMyB
 
     //进行AppBarLayout的滑动监听
     fun setBarLayoutListener() {
-        binding.myAppBarLayout.addOnOffsetChangedListener { appbar: AppBarLayout, i: Int ->
-            if (abs(i) < appbar.totalScrollRange) {
-                binding.toolbar.visibility = View.GONE
-            } else {
-                binding.toolbar.visibility = View.VISIBLE
+        binding.myAppBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener{
+            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                if (appBarLayout != null) {
+                    if (abs(verticalOffset) < appBarLayout.totalScrollRange) {
+                        binding.toolbar.visibility = View.GONE
+                    } else {
+                        binding.toolbar.visibility = View.VISIBLE
+                    }
+                }
             }
-        }
+
+        })
+
+
     }
 }

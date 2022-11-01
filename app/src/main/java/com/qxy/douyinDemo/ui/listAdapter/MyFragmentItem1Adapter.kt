@@ -16,7 +16,7 @@ class MyFragmentItem1Adapter : BaseRvAdapter<List, MyFragmentItemViewHolder>() {
 //    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyFragmentItemViewHolder {
-        var binding :MyListItem1Binding=DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+        var binding : MyListItem1Binding=DataBindingUtil.inflate(LayoutInflater.from(parent.context),
            R.layout.my_list_item1,parent,false)
         return MyFragmentItemViewHolder(binding)
     }
